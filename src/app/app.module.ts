@@ -3,8 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import { registerLocaleData } from '@angular/common';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {LancamentosModule} from "./lancamentos/lancamentos.module";
-import {PessoasModule} from "./pessoas/pessoas.module";
 import {CoreModule} from "./core/core.module";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 
@@ -38,8 +36,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    LancamentosModule,
-    PessoasModule,
     SegurancaModule,
     AppRoutingModule,
 
