@@ -1,0 +1,103 @@
+<div class="container">
+  <form #lancamentoForm="ngForm" (ngSubmit)="salvar(lancamentoForm)">
+    <div class="grid">
+      <div class="col-12">
+        <h1>{{ editando ? 'Edição de' : 'Cadastro de' }} Lançamento</h1>
+      </div>
+
+
+      <div class="col-12">
+        <p-selectButton [options]="tipos" #tipo="ngModel"
+                        name="tipo"
+                        [(ngModel)]="lancamento.tipo"
+                        [required]="true">
+        </p-selectButton>
+        <app-message [control]="tipo" error="required" text="Informe um tipo" ></app-message>
+      </div>
+
+      <div class="col-6 md:col-3 p-fluid">
+        <label>Vencimento</label>
+        <p-calendar dateFormat="dd/mm/yy"
+                    name="dataVencimento"
+                    ngModel #dataVencimento="ngModel"
+                    [(ngModel)]="lancamento.dataVencimento"
+                    [required]="true"
+                    [inline]="false"
+                    [showIcon]="true">
+        </p-calendar>
+        <app-message [control]="dataVencimento" error="required" text="Informe uma data de vencimento" ></app-message>
+      </div>
+      <div class="col-6 md:col-3 p-fluid">
+        <label> {{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
+        <p-calendar dateFormat="dd/mm/yy"
+                    name="dataPagamento"
+                    ngModel #dataPagamento="ngModel"
+                    [(ngModel)]="lancamento.dataPagamento"
+                    [required]="true"
+                    [inline]="false"
+                    [showIcon]="true">
+        </p-calendar>
+      </div>
+      <div class="col-12 md:col-9 p-fluid">
+        <label>Descrição</label>
+
+        <input pInputText type="text" name="descricao"
+               ngModel #descricao="ngModel" required minlength="5"
+               [(ngModel)]="lancamento.descricao">
+
+        <app-message [control]="descricao" error="required" text="Informe uma descrição" ></app-message>
+        <app-message [control]="descricao" error="minlength"
+                       text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }}
+                        caracteres. Você digitou apenas {{ descricao.errors?.['minlength']?.actualLength }}">
+        </app-message>
+
+
+      </div>
+
+      <div class="col-12 md:col-3 p-fluid">
+        <label>Valor</label>
+        <p-inputNumber mode="currency"
+                       currency="BRL"
+                       locale="pt-BR" placeholder="0,00"
+                       ngModel name="valor" #valor="ngModel"
+                       [(ngModel)]="lancamento.valor"
+                       [required]="true"></p-inputNumber>
+        <app-message [control]="valor" error="required" text="Informe um valor" ></app-message>
+      </div>
+      <div class="col-12 md:col-6 p-fluid">
+        <label>Categoria </label>
+        <p-dropdown [options]="categorias"
+                    placeholder="Selecione"
+                    #categoria="ngModel" ngModel
+                    name="categoria"
+                    [(ngModel)]="lancamento.categoria.codigo"
+                    [required]="true"  >
+        </p-dropdown>
+      </div>
+      <div class="col-12 md:col-6 p-fluid">
+        <label>Pessoa </label>
+        <p-dropdown [options]="pessoas"
+                    placeholder="Selecione"
+                    [filter]="true"
+                    name="pessoa"
+                    #pessoa="ngModel" ngModel
+                    [(ngModel)]="lancamento.pessoa.codigo"
+                    [required]="true">
+        </p-dropdown>
+      </div>
+      <div class="col-12 p-fluid">
+        <label>Observação</label>
+        <textarea pInputTextarea rows="3"
+                  name="observacao"
+                  [(ngModel)]="lancamento.observacao">
+        </textarea>
+      </div>
+      <div class="col-12">
+        <button pButton type="submit" label="Salvar" ></button>
+        <button pButton type="button" label="Novo" class="p-button-secondary"
+        (click)="novo(lancamentoForm)"></button>
+        <a routerLink="/lancamentos">Voltar para a pesquisa</a>
+      </div>
+    </div>
+  </form>
+</div>
