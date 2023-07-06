@@ -28,7 +28,6 @@ import {PessoasRoutingModule} from "./pessoas.routing.module";
   imports: [
     CommonModule,
     FormsModule,
-
     InputTextModule,
     ButtonModule,
     TableModule,
